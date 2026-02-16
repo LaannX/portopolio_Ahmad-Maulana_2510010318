@@ -282,7 +282,9 @@ a:hover {
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.3);
   transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
+  transition:
+    width 0.6s,
+    height 0.6s;
 }
 
 .btn:active::before {
@@ -346,7 +348,7 @@ section {
 }
 
 /* ========== About Section ========== */
-.about-section {
+.tentang-section {
   background: rgba(26, 32, 68, 0.5);
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
@@ -644,6 +646,14 @@ section {
 
   .nav-menu {
     gap: var(--space-md);
+  }
+
+  .nav-menu a.active {
+    color: var(--primary);
+  }
+
+  .nav-menu a.active::after {
+    width: 100%;
   }
 
   .nav-menu a {

@@ -1,16 +1,5 @@
 // Array of interesting facts about the portfolio owner
-const interestingFacts = [
-  "Saya belajar web development selama 2 tahun terakhir dan sudah membuat 15+ proyek",
-  "Saya percaya bahwa desain yang baik adalah yang tidak terlihat - itu bekerja dengan sempurna",
-  "Hobi saya adalah mengeksplorasi teknologi baru dan membaca dokumentasi framework terbaru",
-  "Saya telah berkontribusi pada 5 open-source projects di GitHub",
-  "Kecepatan loading website adalah prioritas utama saya dalam setiap project",
-  "Saya bisa menghabiskan 4 jam tanpa henti hanya untuk membuat animasi CSS yang sempurna",
-  "Inspirasi terbesar saya datang dari dribbble.com dan design system yang elegant",
-  "Saya percaya bahwa setiap user experience harus intuitif dan menyenangkan",
-  "Favorit saya adalah dark mode - selalu lebih mudah di mata!",
-  "Saya sedang belajar TypeScript dan machine learning untuk web development",
-];
+const interestingFacts = [];
 
 // Function to show interesting facts with animation
 function showFact() {
@@ -22,11 +11,17 @@ function showFact() {
 }
 
 // Smooth scroll animation for navigation links
+// Smooth scroll fix
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
-    const href = this.getAttribute("href");
-    if (href !== "#" && document.querySelector(href)) {
-      e.preventDefault();
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute("href"));
+
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }
   });
 });
@@ -65,9 +60,30 @@ window.addEventListener("scroll", () => {
 // Console message for easter egg
 console.log(
   "%cHalo! Terima kasih sudah mengunjungi portfolio saya 👋",
-  "color: #0066ff; font-size: 16px; font-weight: bold;"
+  "color: #0066ff; font-size: 16px; font-weight: bold;",
 );
 console.log(
   "%cSebarkan ke teman-teman Anda jika Anda menyukainya! 😊",
-  "color: #10b981; font-size: 14px;"
+  "color: #10b981; font-size: 14px;",
 );
+// Highlight navbar saat section aktif
+window.addEventListener("scroll", () => {
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll(".nav-menu a");
+
+  let current = "";
+
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop - 100;
+    if (pageYOffset >= sectionTop) {
+      current = section.getAttribute("id");
+    }
+  });
+
+  navLinks.forEach((a) => {
+    a.classList.remove("active");
+    if (a.getAttribute("href") === "#" + current) {
+      a.classList.add("active");
+    }
+  });
+});
